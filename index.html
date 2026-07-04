@@ -3,133 +3,245 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Website Bridge Test</title>
-    <meta name="description" content="A clean, modern splash page testing the connection between the local workspace and the GitHub repository.">
-    <style>
-        :root {
-            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --accent-glow: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
-            --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: var(--font-family);
-            background: #0f172a;
-            background-image: var(--bg-gradient);
-            color: var(--text-primary);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* Ambient glow in background */
-        body::before {
-            content: '';
-            position: absolute;
-            width: 150vw;
-            height: 150vh;
-            background: var(--accent-glow);
-            top: -25vh;
-            left: -25vw;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .container {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            padding: 2.5rem;
-            max-width: 600px;
-            width: 90%;
-            background: rgba(30, 41, 59, 0.4);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 24px;
-            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s ease, border-color 0.3s ease;
-        }
-
-        .container:hover {
-            transform: translateY(-4px);
-            border-color: rgba(99, 102, 241, 0.3);
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: #818cf8;
-            background: rgba(99, 102, 241, 0.1);
-            border-radius: 9999px;
-            margin-bottom: 1.5rem;
-            border: 1px solid rgba(99, 102, 241, 0.2);
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            line-height: 1.2;
-            letter-spacing: -0.02em;
-            background: linear-gradient(135deg, #ffffff 30%, #a5b4fc 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1rem;
-        }
-
-        p {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        .status-dot {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            background-color: #10b981;
-            border-radius: 50%;
-            margin-right: 6px;
-            box-shadow: 0 0 12px #10b981;
-        }
-
-        .status-indicator {
-            display: inline-flex;
-            align-items: center;
-            font-size: 0.875rem;
-            color: #a7f3d0;
-            background: rgba(16, 185, 129, 0.1);
-            padding: 0.375rem 0.75rem;
-            border-radius: 9999px;
-            margin-top: 1.5rem;
-            border: 1px solid rgba(16, 185, 129, 0.2);
-        }
-    </style>
+    <title>SyncForge | Collaborative Visual DevOps & Architecture Simulator</title>
+    <meta name="description" content="Design and simulate cloud architectures with real-time loads, bottlenecks, and costs in a collaborative environment.">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container" id="main-container">
-        <div class="badge">Deployment Bridge</div>
-        <h1 id="main-title">Testing my AI Website Bridge</h1>
-        <p>If you can see this page, the local website files have been successfully initialized and configured.</p>
-        <div class="status-indicator">
-            <span class="status-dot"></span>
-            Connection Successful
+    <div id="app-container">
+        <!-- Chaos Mode Banner -->
+        <div id="chaos-mode-banner">
+            ⚠️ Chaos Engineering Mode Active - Simulated outages incoming!
         </div>
+
+        <!-- Top Header & Toolbar -->
+        <header id="header-bar" class="glass-panel">
+            <div class="logo-section">
+                <div class="logo-icon">S</div>
+                <div class="logo-text">
+                    <h1>SyncForge</h1>
+                    <span>DevOps Simulator</span>
+                </div>
+            </div>
+
+            <div class="toolbar-section">
+                <button class="btn" id="btn-undo" title="Undo (Ctrl+Z)">
+                    <span>↩</span> Undo
+                </button>
+                <button class="btn" id="btn-redo" title="Redo (Ctrl+Y)">
+                    <span>↪</span> Redo
+                </button>
+                <button class="btn" id="btn-clear" title="Clear Canvas">
+                    <span>🗑️</span> Clear
+                </button>
+                <span style="width: 1px; height: 24px; background: var(--border-color);"></span>
+                <button class="btn" id="btn-coworkers" title="Toggle Simulated Co-workers">
+                    <span>👥</span> Simulated Cursors
+                </button>
+                <button class="btn" id="btn-chaos" title="Toggle Chaos Mode">
+                    <span>⚡</span> Chaos Mode
+                </button>
+                <button class="btn btn-accent" id="btn-export" title="Export to Terraform">
+                    <span>💾</span> Export IaC
+                </button>
+                <span style="width: 1px; height: 24px; background: var(--border-color);"></span>
+                <div class="connection-badge disconnected" id="connection-status">
+                    <span class="badge-dot"></span>
+                    <span id="connection-text">Connecting...</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Left Sidebar: Node Library -->
+        <aside id="library-sidebar" class="glass-panel">
+            <div class="sidebar-title">Infrastructure Library</div>
+            <div class="node-list">
+                <!-- User Traffic Node -->
+                <div class="library-item" draggable="true" data-node-type="traffic">
+                    <div class="node-icon-wrapper node-traffic">SRC</div>
+                    <div class="node-info-text">
+                        <h4>Traffic Source</h4>
+                        <p>Injects RPS load</p>
+                    </div>
+                </div>
+
+                <!-- Load Balancer Node -->
+                <div class="library-item" draggable="true" data-node-type="alb">
+                    <div class="node-icon-wrapper node-alb">ALB</div>
+                    <div class="node-info-text">
+                        <h4>Load Balancer</h4>
+                        <p>Distributes load</p>
+                    </div>
+                </div>
+
+                <!-- EC2 Node -->
+                <div class="library-item" draggable="true" data-node-type="ec2">
+                    <div class="node-icon-wrapper node-ec2">EC2</div>
+                    <div class="node-info-text">
+                        <h4>Compute Server</h4>
+                        <p>Processes requests</p>
+                    </div>
+                </div>
+
+                <!-- RDS Node -->
+                <div class="library-item" draggable="true" data-node-type="rds">
+                    <div class="node-icon-wrapper node-rds">RDS</div>
+                    <div class="node-info-text">
+                        <h4>Database</h4>
+                        <p>SQL Database Node</p>
+                    </div>
+                </div>
+
+                <!-- Lambda Node -->
+                <div class="library-item" draggable="true" data-node-type="lambda">
+                    <div class="node-icon-wrapper node-lambda">λ</div>
+                    <div class="node-info-text">
+                        <h4>Serverless Fn</h4>
+                        <p>Event-driven compute</p>
+                    </div>
+                </div>
+
+                <!-- S3 Node -->
+                <div class="library-item" draggable="true" data-node-type="s3">
+                    <div class="node-icon-wrapper node-s3">S3</div>
+                    <div class="node-info-text">
+                        <h4>Blob Storage</h4>
+                        <p>S3 Storage Bucket</p>
+                    </div>
+                </div>
+
+                <!-- Redis Node -->
+                <div class="library-item" draggable="true" data-node-type="redis">
+                    <div class="node-icon-wrapper node-redis">MEM</div>
+                    <div class="node-info-text">
+                        <h4>ElastiCache</h4>
+                        <p>Redis caching cluster</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Interactive Canvas Viewport -->
+        <main id="canvas-container">
+            <canvas id="simulator-canvas"></canvas>
+        </main>
+
+        <!-- Right Sidebar: Metrics & Config Dashboard -->
+        <aside id="dashboard-panel" class="glass-panel">
+            <div class="dashboard-title">System Metrics</div>
+            
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="metric-label">Monthly Cloud Spend</span>
+                    <div class="metric-val" id="val-cost">$0.00<span>/mo</span></div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="inspector-row">
+                        <span class="metric-label">System Availability</span>
+                        <span id="val-availability-text" style="font-size: 0.75rem; font-weight:600; color:var(--color-success)">100%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar success" id="bar-availability" style="width: 100%"></div>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <span class="metric-label">Avg System Latency</span>
+                    <div class="metric-val" id="val-latency">0<span>ms</span></div>
+                </div>
+
+                <div class="metric-card">
+                    <span class="metric-label">Peak Grid Load</span>
+                    <div class="metric-val" id="val-rps">0<span>RPS</span></div>
+                </div>
+            </div>
+
+            <!-- Inspector Panel (contextual) -->
+            <div id="inspector-panel" style="display: none;">
+                <div class="inspector-header">
+                    <h3 id="inspect-title">Node Settings</h3>
+                    <button class="btn btn-danger" id="btn-delete-node" style="padding: 4px 8px; font-size: 0.75rem;">
+                        Delete
+                    </button>
+                </div>
+                
+                <div class="inspector-section">
+                    <label for="inspect-name">Node Label</label>
+                    <input type="text" id="inspect-name" style="background:var(--bg-surface-solid); border:1px solid var(--border-color); color:white; padding:8px; border-radius:6px; font-size:0.8rem; width:100%; outline:none;">
+                </div>
+
+                <!-- Sizing options (For EC2/RDS spec configurations) -->
+                <div class="inspector-section" id="inspect-section-size" style="display:none;">
+                    <label for="inspect-size">Instance Sizing</label>
+                    <select id="inspect-size">
+                        <!-- Filled by javascript -->
+                    </select>
+                </div>
+
+                <!-- Custom slider for load variables (Traffic Generator RPS) -->
+                <div class="inspector-section" id="inspect-section-traffic" style="display:none;">
+                    <div class="inspector-row">
+                        <label for="inspect-traffic-rps">Injected Load (RPS)</label>
+                        <span id="inspect-traffic-val">0 RPS</span>
+                    </div>
+                    <input type="range" id="inspect-traffic-rps" min="100" max="20000" step="100" value="1000">
+                </div>
+
+                <!-- Replica/Sizing multiplier -->
+                <div class="inspector-section" id="inspect-section-replicas" style="display:none;">
+                    <div class="inspector-row">
+                        <label for="inspect-replicas">Nodes Count (Scale)</label>
+                        <span id="inspect-replicas-val">1 Node</span>
+                    </div>
+                    <input type="range" id="inspect-replicas" min="1" max="10" step="1" value="1">
+                </div>
+
+                <!-- Readouts -->
+                <div class="traffic-control-box">
+                    <div class="inspector-row">
+                        <span>Resource Capacity:</span>
+                        <span id="inspect-capacity">0 RPS</span>
+                    </div>
+                    <div class="inspector-row">
+                        <span>Cost Allocation:</span>
+                        <span id="inspect-cost">$0/mo</span>
+                    </div>
+                    <div class="inspector-row">
+                        <span>Active Util Rate:</span>
+                        <span id="inspect-utilization">0%</span>
+                    </div>
+                    <div class="inspector-row">
+                        <span>Node Latency:</span>
+                        <span id="inspect-node-latency">0ms</span>
+                    </div>
+                </div>
+
+                <!-- Fail Node simulation button -->
+                <button class="btn btn-danger" id="btn-simulate-fail" style="width: 100%; margin-top: 4px;">
+                    Simulate Server Outage
+                </button>
+            </div>
+        </aside>
+
+        <!-- User Presence indicator -->
+        <div id="presence-container" class="glass-panel">
+            <div class="presence-avatars" id="presence-avatars-box">
+                <!-- Avatars loaded dynamically -->
+            </div>
+            <div class="presence-label" id="presence-label-text">1 developer active</div>
+        </div>
+
+        <!-- Canvas Instructions and shortcuts -->
+        <div id="canvas-hint">
+            Drag Library nodes • Connect via Ports (⭕) • Drag Canvas (Space+Drag/Middle Click) • Zoom (Wheel)
+        </div>
+
+        <!-- Toast Notifications Overlay -->
+        <div id="toast-container"></div>
     </div>
+
+    <!-- Application Script (ES6 Module Entrypoint) -->
+    <script type="module" src="src/app.js"></script>
 </body>
 </html>
